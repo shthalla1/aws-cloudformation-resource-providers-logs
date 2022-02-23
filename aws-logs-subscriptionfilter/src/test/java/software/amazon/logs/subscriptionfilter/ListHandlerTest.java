@@ -1,5 +1,8 @@
 package software.amazon.logs.subscriptionfilter;
 
+import org.mockito.ArgumentMatchers;
+import software.amazon.awssdk.services.cloudwatchlogs.model.DescribeSubscriptionFiltersRequest;
+import software.amazon.awssdk.services.cloudwatchlogs.model.DescribeSubscriptionFiltersResponse;
 import software.amazon.cloudformation.proxy.AmazonWebServicesClientProxy;
 import software.amazon.cloudformation.proxy.Logger;
 import software.amazon.cloudformation.proxy.OperationStatus;
@@ -11,8 +14,14 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Arrays;
+import java.util.HashSet;
+
+
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class ListHandlerTest {
@@ -23,6 +32,8 @@ public class ListHandlerTest {
     @Mock
     private Logger logger;
 
+    final ListHandler handler = new ListHandler();
+
     @BeforeEach
     public void setup() {
         proxy = mock(AmazonWebServicesClientProxy.class);
@@ -31,16 +42,26 @@ public class ListHandlerTest {
 
     @Test
     public void handleRequest_SimpleSuccess() {
-        final ListHandler handler = new ListHandler();
+        final ResourceModel model = ResourceModel.builder()
+                .roleArn("role-arn")
+                .logGroupName("log-group-name")
+                .filterPattern("[pattern]")
+                .destinationArn("destination-name")
+                .build();
 
-        final ResourceModel model = ResourceModel.builder().build();
+        final DescribeSubscriptionFiltersResponse describeResponse = DescribeSubscriptionFiltersResponse.builder()
+                .subscriptionFilters(Translator.translateToSDK(model))
+                .build();
+
+        when(proxy.injectCredentialsAndInvokeV2(ArgumentMatchers.any(DescribeSubscriptionFiltersRequest.class), any()))
+                .thenReturn(describeResponse);
 
         final ResourceHandlerRequest<ResourceModel> request = ResourceHandlerRequest.<ResourceModel>builder()
-            .desiredResourceState(model)
-            .build();
+                .desiredResourceState(model)
+                .build();
 
         final ProgressEvent<ResourceModel, CallbackContext> response =
-            handler.handleRequest(proxy, request, null, logger);
+                handler.handleRequest(proxy, request, null, logger);
 
         assertThat(response).isNotNull();
         assertThat(response.getStatus()).isEqualTo(OperationStatus.SUCCESS);

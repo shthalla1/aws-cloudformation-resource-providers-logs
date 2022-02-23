@@ -66,7 +66,6 @@ public class Translator {
 
   static DescribeSubscriptionFiltersRequest translateToReadRequest(final ResourceModel model) {
     return DescribeSubscriptionFiltersRequest.builder()
-            .filterName(model.getFilterName())
             .logGroupName(model.getLogGroupName())
             .build();
   }
