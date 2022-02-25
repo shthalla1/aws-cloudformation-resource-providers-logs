@@ -12,6 +12,7 @@ import software.amazon.cloudformation.proxy.ProgressEvent;
 import software.amazon.cloudformation.proxy.ProxyClient;
 import software.amazon.cloudformation.proxy.ResourceHandlerRequest;
 import software.amazon.cloudformation.resource.IdentifierUtils;
+import software.amazon.awssdk.annotations.SdkInternalApi;
 
 public class CreateHandler extends BaseHandlerStd {
     private Logger logger;

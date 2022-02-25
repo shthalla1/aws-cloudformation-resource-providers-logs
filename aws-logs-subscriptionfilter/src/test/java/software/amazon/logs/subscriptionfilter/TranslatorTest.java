@@ -117,7 +117,7 @@ public class TranslatorTest {
 
     @Test
     public void translateToListRequest() {
-        final DescribeSubscriptionFiltersRequest expectedRequest = DescribeSubscriptioncFiltersRequest.builder()
+        final DescribeSubscriptionFiltersRequest expectedRequest = DescribeSubscriptionFiltersRequest.builder()
                 .limit(50)
                 .nextToken("token")
                 .build();
