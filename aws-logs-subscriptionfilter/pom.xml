@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project
-    xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+        xmlns="http://maven.apache.org/POM/4.0.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>software.amazon.logs.subscriptionfilter</groupId>
@@ -16,7 +16,20 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <awssdk.version>2.17.130</awssdk.version>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>software.amazon.awssdk</groupId>
+                <artifactId>bom</artifactId>
+                <version>${awssdk.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
         <!-- https://mvnrepository.com/artifact/software.amazon.cloudformation/aws-cloudformation-rpdk-java-plugin -->
@@ -29,13 +42,16 @@
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>utils</artifactId>
-            <version>2.10.49</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/software.amazon.awssdk/cloudwatchlogs -->
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>cloudwatchlogs</artifactId>
-            <version>2.17.130</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/software.amazon.awssdk/sdk-core -->
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>sdk-core</artifactId>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
         <dependency>

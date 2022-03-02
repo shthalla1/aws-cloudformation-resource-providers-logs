@@ -34,6 +34,7 @@ public class ReadHandler extends BaseHandlerStd {
 
         logger.log("Trying to read resource...");
 
+
         return proxy.initiate("AWS-Logs-SubscriptionFilter::Read", proxyClient, model, callbackContext)
                 .translateToServiceRequest(Translator::translateToReadRequest)
                 .makeServiceCall((awsRequest, sdkProxyClient) -> readResource(awsRequest, sdkProxyClient , model))

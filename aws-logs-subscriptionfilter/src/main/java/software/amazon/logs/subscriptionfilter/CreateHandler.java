@@ -29,8 +29,13 @@ public class CreateHandler extends BaseHandlerStd {
         final ResourceModel model = request.getDesiredResourceState();
 
         if (StringUtils.isNullOrEmpty(model.getFilterName())) {
+            //logger.log(String.format("Generated id : %s ", model.getFilterName()) ;
+            logger.log(String.format("Generated id : %s ", request.getLogicalResourceIdentifier())) ;
             model.setFilterName(IdentifierUtils.generateResourceIdentifier(request.getLogicalResourceIdentifier(), request.getClientRequestToken()));
         }
+        else
+            logger.log(String.format("Generated id : %s ", model.getFilterName()) );
+
 
         return proxy.initiate("AWS-Logs-SubscriptionFilter::Create", proxyClient, model, callbackContext)
                 .translateToServiceRequest(Translator::translateToCreateRequest)
@@ -43,10 +48,10 @@ public class CreateHandler extends BaseHandlerStd {
             final PutSubscriptionFilterRequest awsRequest,
             final ProxyClient<CloudWatchLogsClient> proxyClient) {
         try {
-            boolean exists = exists(proxyClient, model);
-            if (exists) {
-                throw new CfnAlreadyExistsException(ResourceModel.TYPE_NAME, model.getPrimaryIdentifier().toString());
-            }
+            //boolean exists = exists(proxyClient, model);
+            //if (exists) {
+            //    throw new CfnAlreadyExistsException(ResourceModel.TYPE_NAME, model.getPrimaryIdentifier().toString());
+            //}
             logger.log(String.format("Resource doesn't exist. Creating a new one %s", ResourceModel.TYPE_NAME));
             return proxyClient.injectCredentialsAndInvokeV2(awsRequest, proxyClient.client()::putSubscriptionFilter);
         } catch (final InvalidParameterException e) {

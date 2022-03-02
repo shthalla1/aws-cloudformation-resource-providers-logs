@@ -38,6 +38,7 @@ public class Translator {
   static ResourceModel translateSubscriptionFilter
           (final software.amazon.awssdk.services.cloudwatchlogs.model.SubscriptionFilter subscriptionFilter) {
     return ResourceModel.builder()
+            .filterName(subscriptionFilter.filterName())
             .destinationArn(subscriptionFilter.destinationArn())
             .filterPattern(subscriptionFilter.filterPattern())
             .logGroupName(subscriptionFilter.logGroupName())
@@ -86,7 +87,6 @@ public class Translator {
 
   static DeleteSubscriptionFilterRequest translateToDeleteRequest(final ResourceModel model) {
     return DeleteSubscriptionFilterRequest.builder()
-            .filterName(model.getFilterName())
             .logGroupName(model.getLogGroupName())
             .build();
   }
