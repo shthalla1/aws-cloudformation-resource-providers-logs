@@ -1,0 +1,7 @@
+{
+  "desiredResourceState": {
+    "LogGroupName": "test",
+    "FilterName": "subfilter-mySubscriptionFilter-1U3PALP91JF5"
+  },
+  "previousResourceState": {}
+}
