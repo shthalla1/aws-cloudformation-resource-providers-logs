@@ -58,6 +58,7 @@ public class Translator {
 
   static PutSubscriptionFilterRequest translateToCreateRequest(final ResourceModel model) {
     return PutSubscriptionFilterRequest.builder()
+            .filterName(model.getFilterName())
             .destinationArn(model.getDestinationArn())
             .filterPattern(model.getFilterPattern())
             .logGroupName(model.getLogGroupName())

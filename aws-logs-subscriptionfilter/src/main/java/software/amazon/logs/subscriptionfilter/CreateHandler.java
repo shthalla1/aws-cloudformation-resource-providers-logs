@@ -31,6 +31,7 @@ public class CreateHandler extends BaseHandlerStd {
         if (StringUtils.isNullOrEmpty(model.getFilterName())) {
             model.setFilterName(IdentifierUtils.generateResourceIdentifier(request.getLogicalResourceIdentifier(), request.getClientRequestToken()));
         }
+        System.out.println("initiating putfilter");
 
         return proxy.initiate("AWS-Logs-SubscriptionFilter::Create", proxyClient, model, callbackContext)
                 .translateToServiceRequest(Translator::translateToCreateRequest)
