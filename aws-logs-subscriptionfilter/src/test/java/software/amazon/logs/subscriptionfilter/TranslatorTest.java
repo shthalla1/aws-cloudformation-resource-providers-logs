@@ -8,6 +8,7 @@ import software.amazon.awssdk.services.cloudwatchlogs.model.DescribeSubscription
 import software.amazon.awssdk.services.cloudwatchlogs.model.DescribeSubscriptionFiltersResponse;
 import software.amazon.awssdk.services.cloudwatchlogs.model.SubscriptionFilter;
 import software.amazon.awssdk.services.cloudwatchlogs.model.PutSubscriptionFilterRequest;
+import software.amazon.logs.subscriptionfilter.ResourceModel;
 
 import java.util.Collections;
 import java.util.Arrays;

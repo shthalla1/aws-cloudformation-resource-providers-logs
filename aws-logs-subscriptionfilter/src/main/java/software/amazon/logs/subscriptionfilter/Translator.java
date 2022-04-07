@@ -82,7 +82,9 @@ public class Translator {
 
   static List<ResourceModel> translateFromListResponse(final DescribeSubscriptionFiltersResponse awsResponse) {
     return streamOfOrEmpty(awsResponse.subscriptionFilters())
-            .map(Translator::translateSubscriptionFilter)
+            .map(filter -> ResourceModel.builder()
+                    .logGroupName(filter.logGroupName())
+                    .build())
             .collect(Collectors.toList());
   }
 
@@ -96,8 +98,9 @@ public class Translator {
     return translateToCreateRequest(model);
   }
 
-  static DescribeSubscriptionFiltersRequest translateToListRequest(final String nextToken) {
+  static DescribeSubscriptionFiltersRequest translateToListRequest(final ResourceModel model, final String nextToken) {
     return DescribeSubscriptionFiltersRequest.builder()
+            .logGroupName(model.getLogGroupName())
             .nextToken(nextToken)
             .limit(50)
             .build();
